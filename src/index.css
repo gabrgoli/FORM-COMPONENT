@@ -30,3 +30,9 @@ code {
   line-height: 120%;
   width: 100%;
 }
+
+
+.Button1Disable{
+  pointer-events: none;
+  opacity: 0.5;
+}

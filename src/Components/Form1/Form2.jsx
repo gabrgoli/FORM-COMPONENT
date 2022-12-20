@@ -165,7 +165,7 @@ const Form1 = () => {
     
 
 
-    <button type="submit" onClick={(e)=>handleSubmit(e)} name="next" className="Button1" value="Button1" onChange={(ev)=>validate(ev)}>{loader?"Loading...":"Next"}</button>
+    <button type="submit" onClick={(e)=>handleSubmit(e)} name="next" className={loader?"Button1 Button1Disable":"Button1"} value="Button1" onChange={(ev)=>validate(ev)}>{loader?"Loading...":"Next"}</button>
 
     
     
