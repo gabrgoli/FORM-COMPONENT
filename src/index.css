@@ -1,3 +1,8 @@
+:root {
+  --IAMX-color: #007efb;
+  --font1:'Space Grotesk', 'sans-serif'; 
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +15,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.Button1{
+  font-family: var(--font1);
+  background-color: var(--IAMX-color);
+  border-radius: 8px;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 120%;
+  width: 100%;
 }

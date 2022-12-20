@@ -1,0 +1,73 @@
+/*form styles*/
+#msform {
+	margin: 24px;
+}
+
+#msform input, #msform textarea {
+	background-color: transparent;
+	padding: 0px;
+	border: 0px;
+	border-bottom: 1px solid rgb(0, 0, 0);
+	margin-bottom: 10px;
+	width: 100%;
+	/* box-sizing: border-box; */
+	font-family: var(--font1);
+	line-height: 130%;
+	/* color: #2C3E50; */
+	font-size: 20px;
+}
+
+#msform button{
+	width: 100%;
+	margin-top: 65px;
+	border: 0px;
+}
+
+.Form1Icon svg{
+	position: absolute;
+	right: 28px;
+	color: var(--IAMX-color);
+	width: 25px;
+	height: 25px;
+}
+
+
+
+
+  .form2::placeholder {
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+
+
+  .Form1Label{
+	font-family: var(--font1);
+	font-size: 16px;
+	margin-top: 19px;
+	margin-bottom: 7px;
+  }
+
+
+
+/* buttons
+#msform .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+} */
+
+.errorsClass{
+  color: red;
+  display: block;
+  /* flex-direction: column; */
+}
+
