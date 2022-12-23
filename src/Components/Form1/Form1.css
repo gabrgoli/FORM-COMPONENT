@@ -1,9 +1,9 @@
 /*form styles*/
-#msform {
+.Form1  {
 	margin: 24px;
 }
 
-#msform input, #msform textarea {
+.form1Input {
 	background-color: transparent;
 	padding: 0px;
 	border: 0px;
@@ -17,10 +17,17 @@
 	font-size: 20px;
 }
 
-#msform button{
+.Form1 button{
 	width: 100%;
 	margin-top: 65px;
 	border: 0px;
+}
+
+.Form1 button:active{
+	background-color: #085066;
+	transform: scale(0.98);
+	/* Scaling button to 0.98 to its original size */
+	box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
 .Form1Icon svg{
@@ -34,9 +41,14 @@
 
 
 
-  .form2::placeholder {
+  .formError{
+    border:2px solid red
+   }
+
+  .formError::placeholder {
     color: red;
     opacity: 1; /* Firefox */
+	
   }
 
 
@@ -47,23 +59,6 @@
 	margin-bottom: 7px;
   }
 
-
-
-/* buttons
-#msform .action-button {
-	width: 100px;
-	background: #27AE60;
-	font-weight: bold;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 10px 5px;
-	margin: 10px 5px;
-}
-#msform .action-button:hover, #msform .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-} */
 
 .errorsClass{
   color: red;
