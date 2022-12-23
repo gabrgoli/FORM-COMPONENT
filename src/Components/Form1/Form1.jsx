@@ -157,7 +157,7 @@ const Form = () => {
 
     <label>Password *</label>
     <div className="Form1Icon"  onClick={(ev)=>showPass(ev)}>{!showPassword?<IoEyeOffOutline/>:<IoEyeOutline/>}</div>
-    <input type={showPassword?"text":"Password"} name="password" placeholder="Your Password" style={errors.password?{border:"2px solid red"}:{}} className={errors.password?"formError form1Input ":"form1Input"}/>
+    <input type={showPassword?"text":"Password"} name="password" placeholder="Your Password" className={errors.password?"formError form1Input ":"form1Input"}/>
     
 
 
