@@ -7,45 +7,33 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 
 
-const Form1 = () => {
+function getErrors(input){
+  let errorsForm = {};
+  //email Validation
+  if(input.email===''){
+    errorsForm.email = "Email cannot be empty"
+  }
+  else{
+    if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/).test(input.email)){
+      errorsForm.email = "Email its not a valid email"
+    }
+    else{
+      errorsForm.email = ""
+    }
+  }
+  return errorsForm;
+}
 
-    const[input,setInput]=useState({
-        email:'',
-
-    })
-
-    const [errors, setErrors] = useState({
-        email:'',
-
-    }) 
+function  Form() {
+    const [input,setInput]=useState({email:''})
+    let [errors, setErrors] = useState({email:''}) 
 
     function apiCall(){
       console.log("envio completo",input);
       setLoader((false));
     }
 
-    function getErrors(input,errorsForm){
-         // const errorsForm = {};
-          //email Validation
-          if(input.email===''){
-            errorsForm.email = "Email cannot be empty"
-          }
-          else{
-            if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/).test(input.email)){
-              errorsForm.email = "Email its not a valid email"
-            }
-            else{
-              errorsForm.email = ""
-            }
-          }
-          return errorsForm
-    }
-    
-
-
-
     const [loader,setLoader] = useState(false)
-
 
     //FUNTION VALIDATE
     const validate=async (ev)=>{
@@ -53,54 +41,45 @@ const Form1 = () => {
       setErrors((errors)=>({...errors,[ev.target.name]:""}))
     }
 
-    
-    
     //FUNCTION SUBMIT
-    const handleSubmit= (e)=>{
+    function handleSubmit(e){
         e.preventDefault();
-        
-        setErrors(getErrors(input,errors))
-        
-        console.log("input",input)
 
-        console.log("errors mostrar:",errors)
+        errors=getErrors(input)
+        setErrors(getErrors(input))
 
-        errors.email?
-          console.log("hay errores")
-          :
+        if(errors.email!==''){
+            console.log("hay errores:",errors)
+        }
+        else{
           (
             setLoader(true)
             (setTimeout(apiCall, 3000))
           )
+        }
     }
-    
-
 
   return (
-<form id="msform">
-  <div>
+      <form 
+          id="msform"
+          onSubmit={(e) => handleSubmit(e)}
+          onChange={(e) => validate(e)}
+      >
+          <div>
+              <h1>TITULO.</h1>
+            
+              <label className="Form1Label">E-mail *</label>
+              <div className="Form1Icon"><AiOutlineQuestionCircle/></div>
+              <input type="text" name="email" placeholder="Your E-Mail" style={errors.email?{border:"2px solid red"}:{}} className={errors.email&&"form2"} />
+              
+              <button type="submit" name="next" className="Button1" value="Button1" >{loader?"Loading...":"Next"}</button>
 
-    <h1>TITULO.</h1>
-  
-
-    <label className="Form1Label">E-mail *</label>
-    <div className="Form1Icon"><AiOutlineQuestionCircle/></div>
-    <input type="text" name="email" value={input.email} placeholder="Your E-Mail" onChange={(ev)=>validate(ev)} style={errors.email?{border:"2px solid red"}:{}} className={errors.email&&"form2"} />
-    
-
-
-    <button type="submit" onClick={(e)=>handleSubmit(e)} name="next" className="Button1" value="Button1" onChange={(ev)=>validate(ev)}>{loader?"Loading...":"Next"}</button>
-
-    
-    
-    <section className="errorsClass">
-
-        {errors.email?<div>{errors.email} </div>:<></>}
-
-    </section>
-  </div>
-</form>
+              <section className="errorsClass">
+                  {errors.email?<div>{errors.email} </div>:<></>}
+              </section>
+          </div>
+      </form>
   );
 };
 
-export default Form1;
+export default Form;

@@ -7,7 +7,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 
 
-const Form1 = () => {
+const Form = () => {
 
     const[input,setInput]=useState({
         email:'',
@@ -182,4 +182,4 @@ const Form1 = () => {
   );
 };
 
-export default Form1;
+export default Form;
