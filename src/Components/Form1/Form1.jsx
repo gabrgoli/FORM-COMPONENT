@@ -8,84 +8,37 @@ import { IoEyeOffOutline } from "react-icons/io5";
 
 function getErrors(input){
         let errors = {};
-           //amount Validation
-           if (input.amount===''){ 
-            errors.amount = "Amount cannot be empty"
-        } else{
-           errors.amount = ""
-        }
+        //amount Validation
+        if (!input.amount){ errors.amount = "Amount cannot be empty"}
 
-           //walletAdress Validation
-           if (input.walletAdress===''){ 
-             errors.walletAdress = "Wallet Adress cannot be empty"
-            
-         } else{
-              errors.walletAdress = ""
-         }
+        //walletAdress Validation
+        if (!input.walletAdress){ errors.walletAdress = "Wallet Adress cannot be empty"} 
 
-          //email Validation
-          if(input.email===''){
-            errors.email = "Email cannot be empty"
-          }
-          else{
-            if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/).test(input.email)){
-              errors.email = "Email its not a valid email"
-            }
-            else{
-              errors.email = ""
-            }
-          }
- 
-         //mobileNumber Validation
-         if (input.mobileNumber===''){ 
-            errors.mobileNumber = "Mobile number cannot be empty"
-         } else{
-             if (!(/\d/).test(input.mobileNumber) ) {  
-               errors.mobileNumber = "Mobile number must be a number"
-             }else{
-             errors.mobileNumber = ""
-             }
-         }
- 
-         //WalletPool Validation
-         if (input.walletPool===''){ 
-             errors.walletPool = "WalletPool cannot be empty"
-         } else{
-              errors.walletPool = ""
-         }
- 
-         //password Validation
-         if (input.password===''){ 
-           errors.password = "password Adress cannot be empty"
-         } else{
-             errors.password = ""
+        //email Validation
+        if (!input.email){errors.email = "Email cannot be empty"}
+          else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/).test(input.email)){errors.email = "Email its not a valid email"}
 
-         }
+        
+        //mobileNumber Validation
+        if (!input.mobileNumber){ errors.mobileNumber = "Mobile number cannot be empty"} 
+         else if(!(/\d/).test(input.mobileNumber)) {errors.mobileNumber = "Mobile number must be a number"}
+         
+        //WalletPool Validation
+        if (!input.walletPool){errors.walletPool = "WalletPool cannot be empty"} 
 
-         return errors
+        //password Validation
+        if (!input.password){errors.password = "password Adress cannot be empty"} 
+
+        return errors
 }
 
 
 
 const Form = () => {
 
-    const[input,setInput]=useState({
-        email:'',
-        mobileNumber:'',
-        walletPool:'',
-        password:'',
-        amount:'',
-        walletAdress:''
-    })
+    const[input,setInput]=useState({})
 
-    let [errors, setErrors] = useState({
-        email:'',
-        mobileNumber:'',
-        walletPool:'',  
-        password:'',
-        amount:'',
-        walletAdress:''
-    }) 
+    let [errors, setErrors] = useState({}) 
 
     const[showPassword,setShowPassword] = useState(false)
 
@@ -114,8 +67,9 @@ const Form = () => {
     const handleSubmit= async(e)=>{
         e.preventDefault();
         errors=getErrors(input)
-        setErrors(getErrors(input))
-        errors.email||errors.mobileNumber||errors.walletPool||errors.password||errors.walletAdress||errors.amount?
+        setErrors(errors)
+        console.log(errors)
+        Object.entries(errors).length !== 0?
           console.log("hay errores")
           :
           (
@@ -166,12 +120,13 @@ const Form = () => {
     
     
     <section className="errorsClass">
-        {errors.mobileNumber?<div>{errors.mobileNumber} </div>:<></>}
-        {errors.walletAdress?<div>{errors.walletAdress} </div>:<></>}
-        {errors.amount?<div>{errors.amount} </div>:<></>}
-        {errors.email?<div>{errors.email} </div>:<></>}
-        {errors.walletPool?<div>{errors.walletPool} </div>:<></>}
-        {errors.password?<div>{errors.password} </div>:<></>}
+
+        {
+            Object.values(errors).map((error) => {
+              return <div key={error}>{error}</div>
+            })
+        }
+      
     </section>
   </div>
 </form>
