@@ -18,7 +18,6 @@ function getErrors(input){
         if (!input.email){errors.email = "Email cannot be empty"}
           else if(!(/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/).test(input.email)){errors.email = "Email its not a valid email"}
 
-        
         //mobileNumber Validation
         if (!input.mobileNumber){ errors.mobileNumber = "Mobile number cannot be empty"} 
          else if(!(/\d/).test(input.mobileNumber)) {errors.mobileNumber = "Mobile number must be a number"}
@@ -27,7 +26,7 @@ function getErrors(input){
         if (!input.walletPool){errors.walletPool = "WalletPool cannot be empty"} 
 
         //password Validation
-        if (!input.password){errors.password = "password Adress cannot be empty"} 
+        if (!input.password){errors.password = "Password Adress cannot be empty"} 
 
         return errors
 }
@@ -37,40 +36,38 @@ function getErrors(input){
 const Form = () => {
 
     const[input,setInput]=useState({})
-
     let [errors, setErrors] = useState({}) 
-
+    const [loader,setLoader] = useState(false)
     const[showPassword,setShowPassword] = useState(false)
 
+    //FUNCTION SUBMIT
     function apiCall(){
       console.log("envio completo",input);
       setLoader((false));
     }
 
-    const [loader,setLoader] = useState(false)
 
 
-    //FUNTION VALIDATE
+    //FUNCTION HANDLECHANGE
     const validate=async (ev)=>{
       setInput((input)=>({...input,[ev.target.name]:ev.target.value}))
       setErrors((errors)=>({...errors,[ev.target.name]:""}))
     }
 
-    //SHOW NOTSHOW PASSWORD
+    //SHOW OR NOTSHOW PASSWORD
     const showPass=()=>{
       setShowPassword(!showPassword)
       console.log("showPass",showPassword)
     }
     
     
-    //FUNCTION SUBMIT
+    //FUNCTION VALIDATE SUBMIT
     const handleSubmit= async(e)=>{
         e.preventDefault();
         errors=getErrors(input)
         setErrors(errors)
-        console.log(errors)
         Object.entries(errors).length !== 0?
-          console.log("hay errores")
+          console.log("Show errors:",errors)
           :
           (
             setLoader(true)
@@ -90,43 +87,40 @@ const Form = () => {
 
     <h1>TITULO.</h1>
   
-    <label className="Form1Label">Amount *</label>
-    <input type="text" name="amount"   placeholder="Amount of Beneficial Owners" className={errors.amount?"formError form1Input ":"form1Input"}/>
+    <label >Amount *</label>
+    <input type="text" name="amount"   placeholder="Amount of Beneficial Owners" className={errors.amount&&"formError"}/>
     
-    <label className="Form1Label">Wallet Adress *</label>
-    <div className="Form1Icon"><AiOutlineQuestionCircle/></div>
-    <input type="text" name="walletAdress"  placeholder="Your Wallet Adress" className={errors.walletAdress?"formError form1Input ":"form1Input"}/>
+    <label >Wallet Adress *</label>
+    <div>
+      <AiOutlineQuestionCircle/>
+      <input type="text" name="walletAdress"  placeholder="Your Wallet Adress" className={errors.walletAdress&&"formError"}/>
+    </div>
     
 
-    <label className="Form1Label">E-mail *</label>
-    <div className="Form1Icon"><AiOutlineQuestionCircle/></div>
-    <input type="text" name="email"  placeholder="Your E-Mail"  className={errors.email?"formError form1Input ":"form1Input"} />
-    
+    <label >E-mail *</label>
+    <div>
+      <AiOutlineQuestionCircle/>
+      <input type="text" name="email"  placeholder="Your E-Mail"  className={errors.email&&"formError"} />
+    </div>
     <label>Phone Number *</label>
-    <div className="Form1Icon"><AiOutlineQuestionCircle/></div>
-    <input type="text" name="mobileNumber"  placeholder="Your Phone Number"  className={errors.mobileNumber?"formError form1Input ":"form1Input"}/>
+    <div >
+      <AiOutlineQuestionCircle/>
+      <input type="text" name="mobileNumber"  placeholder="Your Phone Number"  className={errors.mobileNumber&&"formErro"}/>
+    </div>
     
     <label className="Form1Label">walletPool *</label>
-    <input type="text" name="walletPool"  placeholder="Wallet Address Pool" className={errors.walletPool?"formError form1Input ":"form1Input"}/>
+    <input type="text" name="walletPool"  placeholder="Wallet Address Pool" className={errors.walletPool&&"formError"}/>
 
     <label>Password *</label>
-    <div className="Form1Icon"  onClick={(ev)=>showPass(ev)}>{!showPassword?<IoEyeOffOutline/>:<IoEyeOutline/>}</div>
-    <input type={showPassword?"text":"Password"} name="password" placeholder="Your Password" className={errors.password?"formError form1Input ":"form1Input"}/>
-    
-
+    <div onClick={(ev)=>showPass(ev)}>
+      {!showPassword?<IoEyeOffOutline/>:<IoEyeOutline/>}
+      <input type={showPassword?"text":"Password"} name="password" placeholder="Your Password" className={errors.password&&"formError"}/>
+    </div>
 
     <button type="submit" name="next" className={loader?"Button1 Button1Disable":"Button1"} value="Button1" >{loader?"Loading...":"Next"}</button>
-
     
-    
-    <section className="errorsClass">
-
-        {
-            Object.values(errors).map((error) => {
-              return <div key={error}>{error}</div>
-            })
-        }
-      
+    <section>
+        {Object.values(errors).map((error,i) => {return <div key={i}>{error}</div> })}
     </section>
   </div>
 </form>
