@@ -44,8 +44,13 @@ const Form = () => {
     function apiCall(){
       console.log("envio completo",input);
       setLoader((false));
+      setInput({})
     }
-
+    //FUNTION HANDLEBLUR
+    const handleBlur=async (ev)=>{
+      let errores=getErrors(input)
+      setErrors(({...errors,[ev.target.name]:errores[ev.target.name]}))
+    }
 
 
     //FUNCTION HANDLECHANGE
@@ -82,39 +87,40 @@ const Form = () => {
     className="Form1"
     onSubmit={(e) => handleSubmit(e)}
     onChange={(e) => validate(e)}
+    onBlur={(e) => handleBlur(e)}
 >
   <div>
 
     <h1>TITULO.</h1>
   
     <label >Amount *</label>
-    <input type="text" name="amount"   placeholder="Amount of Beneficial Owners" className={errors.amount&&"formError"}/>
+    <input type="text" name="amount" value={input.amount?input.amount:""}   placeholder="Amount of Beneficial Owners" className={errors.amount&&"formError"}/>
     
     <label >Wallet Adress *</label>
     <div>
       <AiOutlineQuestionCircle/>
-      <input type="text" name="walletAdress"  placeholder="Your Wallet Adress" className={errors.walletAdress&&"formError"}/>
+      <input type="text" name="walletAdress" value={input.walletAdress?input.walletAdress:""}  placeholder="Your Wallet Adress" className={errors.walletAdress&&"formError"}/>
     </div>
     
 
     <label >E-mail *</label>
     <div>
       <AiOutlineQuestionCircle/>
-      <input type="text" name="email"  placeholder="Your E-Mail"  className={errors.email&&"formError"} />
+      <input type="text" name="email"  value={input.email?input.email:""}  placeholder="Your E-Mail"  className={errors.email&&"formError"} />
     </div>
     <label>Phone Number *</label>
     <div >
       <AiOutlineQuestionCircle/>
-      <input type="text" name="mobileNumber"  placeholder="Your Phone Number"  className={errors.mobileNumber&&"formErro"}/>
+      <input type="text" name="mobileNumber"  value={input.mobileNumber?input.mobileNumber:""}  placeholder="Your Phone Number"  className={errors.mobileNumber&&"formError"}/>
     </div>
     
-    <label className="Form1Label">walletPool *</label>
-    <input type="text" name="walletPool"  placeholder="Wallet Address Pool" className={errors.walletPool&&"formError"}/>
+    <label >walletPool *</label>
+    <input type="text" name="walletPool"  value={input.walletPool?input.walletPool:""} placeholder="Wallet Address Pool" className={errors.walletPool&&"formError"}/>
 
     <label>Password *</label>
     <div onClick={(ev)=>showPass(ev)}>
       {!showPassword?<IoEyeOffOutline/>:<IoEyeOutline/>}
-      <input type={showPassword?"text":"Password"} name="password" placeholder="Your Password" className={errors.password&&"formError"}/>
+      <input type={showPassword?"text":"Password"} name="password"  value={input.password?input.password:""} placeholder="Your Password" className={errors.password&&"formError"}/>
     </div>
 
     <button type="submit" name="next" className={loader?"Button1 Button1Disable":"Button1"} value="Button1" >{loader?"Loading...":"Next"}</button>
